@@ -1,5 +1,7 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+![promptopiaExample](https://github.com/jtejederabit/nextjs_shared_prompts/assets/130762129/24ad1551-4839-4c8e-9f60-c9bb1c7272e4)
+
 ## Getting Started
 
 First, run the development server:
