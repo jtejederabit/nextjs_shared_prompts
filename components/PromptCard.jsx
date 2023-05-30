@@ -11,7 +11,15 @@ const PromptCard = ({
     handleDelete
 }) => {
     const router = useRouter();
-    const [copy, setCopy] = useState()
+    const { data: session } = useSession();
+    const pathName = usePathname();
+    const [copy, setCopied] = useState("")
+
+    const handleCopy = () => {
+        setCopied(prompt.prompt)
+        navigator.clipboard.writeText(prompt.prompt);
+        setTimeout(() => setCopied(""), 3000)
+    }
     return (
         <div
             className="prompt_card"
@@ -31,11 +39,12 @@ const PromptCard = ({
                     </div>
                 </div>
 
-                <div className="copy_btn" onClick={() => {}}>
+                <div className="copy_btn" onClick={handleCopy}>
                     <Image
                         src={copy === prompt.prompt ? '/assets/icons/tick.svg' : '/assets/icons/copy.svg'}
                         width={12}
                         height={12}
+                        alt="copy_icon"
                     />
                 </div>
             </div>
@@ -47,8 +56,26 @@ const PromptCard = ({
                 className="font-inter text-sm blue_gradient"
                 onClick={() => handleTagClick && handleTagClick(prompt.tag)}
             >
-                {prompt.tag}
+                #{prompt.tag}
             </p>
+            {
+                session?.user.id === prompt.creator._id &&
+                pathName === '/profile' &&
+                (
+                    <div className="mt-5 flex-center gap-4 border-t border-gray-100 pt-3">
+                        <p className="font-inter text-sm green_gradient cursor-pointer"
+                           onClick={() => handleEdit(prompt)}
+                        >
+                            Edit
+                        </p>
+                        <p className="font-inter text-sm orange_gradient cursor-pointer"
+                           onClick={handleDelete}
+                        >
+                            Delete
+                        </p>
+                    </div>
+                )
+            }
         </div>
     );
 };
